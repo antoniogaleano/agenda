@@ -105,7 +105,7 @@
                 },
                 dateClick:function(informacion){
                   limpiarFormulario(informacion.dateStr);
-                    //alert("Seleccionaste: "+informacion.dateStr);
+                    // alert("Seleccionaste: "+informacion.dateStr);
                     modalEvento.show();
                 },
                 eventClick:function(informacion){
@@ -136,16 +136,21 @@
         document.getElementById('btnBorrar').removeAttribute('disabled',"");
         document.getElementById('btnGuardar').removeAttribute('disabled',"");
       }
+
       function borrarEvento(){
         // alert("borrando");
         eviarDatoApi("borrar");
       }
       function agregarEvento() {
-      //  for (var valor of evento.values()) {
-      //   console.log(valor);
-      //  }
+      if (document.getElementById('titulo').value=="") {
+        document.getElementById('titulo').classList.add('is-invalid');
+        return true;
+      }
+       
+
       accion = (document.getElementById("id").value==0)?"agregar":"actualizar";
       eviarDatoApi(accion);
+
       }
       function eviarDatoApi(accion){
           fetch("api.php?accion="+accion,{
@@ -179,7 +184,10 @@
         document.getElementById('color').value="";
 
         document.getElementById('btnBorrar').setAttribute('disabled',"disabled");
-        document.getElementById('btnGuardar').setAttribute('disabled',"disabled");
+        // document.getElementById('btnGuardar').setAttribute('disabled',"disabled");
+      }
+      function limpiarErrores(){
+        document.getElementById('titulo').classList.remove('is-invalid');
       }
     </script>
      </body>
